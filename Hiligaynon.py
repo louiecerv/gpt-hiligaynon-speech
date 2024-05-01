@@ -74,7 +74,7 @@ async def app():
             resp.stream_to_file(speech_file_path)
 
             with open(speech_file_path, "rb") as f:
-                st.audio(f.read(), format='audio/mp3')
+                await st.audio(f.read(), format='audio/mp3')
 
 
         else:
