@@ -70,9 +70,9 @@ async def app():
             st.error("Please enter both question and context.")
 
 
-def text_to_speech(text):
+async def text_to_speech(text):
     speech_file_path = Path(__file__).parent / "speech.mp3"
-    response = client.audio.speech.create(
+    response = await client.audio.speech.create(
         model="tts-1",
         voice="onyx",
         input=text
