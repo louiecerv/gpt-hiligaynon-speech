@@ -66,15 +66,15 @@ async def app():
             st.write(response)
 
             speech_file_path = Path(__file__).parent / "speech.mp3"
-            resp = await client.audio.speech.create(
+            resp = client.audio.speech.create(
                 model="tts-1",
                 voice="onyx",
                 input=response
             )
-            await resp.stream_to_file(speech_file_path)
+            resp.stream_to_file(speech_file_path)
 
             with open(speech_file_path, "rb") as f:
-                await st.audio(f.read(), format='audio/mp3')
+                st.audio(f.read(), format='audio/mp3')
 
 
         else:
