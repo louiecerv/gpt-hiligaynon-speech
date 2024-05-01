@@ -71,7 +71,7 @@ async def app():
                 voice="onyx",
                 input=response
             )
-            await resp.stream_to_file(speech_file_path)
+            resp.stream_to_file(speech_file_path)
 
             with open(speech_file_path, "rb") as f:
                 st.audio(f.read(), format='audio/mp3')
