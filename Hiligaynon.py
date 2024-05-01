@@ -66,7 +66,7 @@ async def app():
             st.write(response)
 
             speech_file_path = Path(__file__).parent / "speech.mp3"
-            resp = client.audio.speech.create(
+            resp = await client.audio.speech.create(
                 model="tts-1",
                 voice="onyx",
                 input=response
