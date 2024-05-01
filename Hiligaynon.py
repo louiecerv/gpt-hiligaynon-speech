@@ -64,23 +64,24 @@ async def app():
             response = await generate_response(prompt, context)
             st.write("Response:")
             st.write(response)
-            await text_to_speech(response)
+
+            speech_file_path = Path(__file__).parent / "speech.mp3"
+            resp = await client.audio.speech.create(
+                model="tts-1",
+                voice="onyx",
+                input=response
+            )
+            await resp.stream_to_file(speech_file_path)
+
+            with open(speech_file_path, "rb") as f:
+                await st.audio(f.read(), format='audio/mp3')
+
 
         else:
             st.error("Please enter both question and context.")
 
 
-async def text_to_speech(text):
-    speech_file_path = Path(__file__).parent / "speech.mp3"
-    response = await client.audio.speech.create(
-        model="tts-1",
-        voice="onyx",
-        input=text
-    )
-    await response.stream_to_file(speech_file_path)
-
-    with open(speech_file_path, "rb") as f:
-        await st.audio(f.read(), format='audio/mp3')
+ 
 
 #run the app
 if __name__ == "__main__":
