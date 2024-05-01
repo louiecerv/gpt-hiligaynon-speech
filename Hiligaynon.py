@@ -64,7 +64,7 @@ async def app():
             response = await generate_response(prompt, context)
             st.write("Response:")
             st.write(response)
-            text_to_speech(response)
+            await text_to_speech(response)
 
         else:
             st.error("Please enter both question and context.")
